@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adnan Kaldybayev — engineering portfolio</title>
+  <meta name="description" content="Adnan Kaldybayev, 17, Almaty. I build working systems with public numbers: GridCast forecasts electricity demand for 8 power grids and shows its own errors, daily.">
+  <meta property="og:title" content="Adnan Kaldybayev — GridCast: live electricity-demand forecasting">
+  <meta property="og:description" content="An open multi-market forecasting system that publishes its own mistakes every day. Built at 17 in Almaty.">
+  <meta name="theme-color" content="#090c10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23090c10'/%3E%3Cpath d='M17.5 4 8 19h6.5L14 28 24 13h-6.5L17.5 4z' fill='%23e8a33d'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="top">
+    <span class="top__name">Adnan Kaldybayev</span>
+    <nav class="top__nav" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#method">Method</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero__text">
+        <p class="hero__kicker">Almaty, Kazakhstan · 17 · applying 2027</p>
+        <h1>I build systems that <em>prove themselves in public</em>.</h1>
+        <p class="hero__lede">
+          My main project, <strong>GridCast</strong>, forecasts tomorrow's electricity
+          demand for 8 national power grids — then shows its own error rate the
+          next day. Every day. On record.
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--accent" href="https://adnanadnankaldybayev-design.github.io/gridcast/" target="_blank" rel="noopener">Watch it work, live</a>
+          <a class="btn" href="https://github.com/adnanadnankaldybayev-design/gridcast" target="_blank" rel="noopener">Read the code</a>
+        </div>
+      </div>
+
+      <aside class="live" id="liveCard" aria-label="Live GridCast snapshot">
+        <p class="live__status">
+          <span class="pulse" aria-hidden="true"></span>
+          <span id="liveStatus">connecting to the live feed…</span>
+        </p>
+        <p class="live__big" id="liveMetric">—</p>
+        <p class="live__sub" id="liveSub">model vs baseline, rolling benchmark</p>
+        <div class="live__rows" id="liveRows"></div>
+        <a class="live__link" href="https://adnanadnankaldybayev-design.github.io/gridcast/dashboard.html" target="_blank" rel="noopener">Full dashboard →</a>
+      </aside>
+    </section>
+
+    <!-- ============ WORK ============ -->
+    <section class="section" id="work">
+      <h2>The main thing I'm building</h2>
+      <div class="work">
+        <div class="work__main">
+          <h3>GridCast — electricity demand, forecast out loud</h3>
+          <p>
+            Electricity grids need tomorrow's demand to plan fuel, storage and imports.
+            Most student projects plot history. GridCast issues a forecast for
+            <strong>10 series across 8 grid operators</strong> — Kazakhstan, Great Britain,
+            Ireland, France, Germany, Belgium, Denmark, Australia — and keeps score of
+            itself against the official numbers when they arrive.
+          </p>
+          <p>
+            Under the hood: ingestion from 10 public operator APIs, a leak-proof
+            backtesting protocol (a feature cannot use data that wasn't published yet),
+            four model families from a naive baseline to Amazon's zero-shot Chronos,
+            conformal prediction intervals, and statistical significance tests —
+            applied against itself, with the losses published too.
+          </p>
+          <ul class="facts">
+            <li><strong id="factUnits">14</strong><span>energy series forecast daily</span></li>
+            <li><strong id="factCountries">8</strong><span>countries, 3 continents</span></li>
+            <li><strong id="factTests">131</strong><span>automated tests on every commit</span></li>
+            <li><strong>04:47</strong><span>UTC — the site updates itself daily</span></li>
+          </ul>
+        </div>
+        <div class="work__side">
+          <h4>Honest results</h4>
+          <dl class="results" id="resultsList">
+            <div><dt>Ireland, best grid</dt><dd>error 3.5% — model beats baseline</dd></div>
+            <div><dt>Belgium, hardest grid</dt><dd>17% — solar midday dips, documented why</dd></div>
+            <div><dt>Zero-shot AI on GB</dt><dd>statistically ties our custom model — on the grid with the least data</dd></div>
+          </dl>
+          <p class="note">
+            Current weather: Denmark's operator paused its dataset in September —
+            the dashboard marks it as a source stall instead of pretending.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ METHOD ============ -->
+    <section class="section" id="method">
+      <h2>How I work</h2>
+      <p class="method__lede">The part admissions can actually verify.</p>
+      <div class="method">
+        <article>
+          <h3>Adversarial review, every stage</h3>
+          <p>
+            Every build step faces an independent reviewer whose job is to prove it
+            should not ship. It caught silent history-deletion in reingest, a naive
+            model that only looked accurate because of a publication lag, and a
+            healthcheck that would have blocked its own dashboard. Each fix has a
+            regression test. The log is public.
+          </p>
+        </article>
+        <article>
+          <h3>No invented numbers</h3>
+          <p>
+            Every claim on the site comes from a JSON the pipeline wrote, stamped
+            with the exact git SHA and a dirty-tree flag. When significance testing
+            weakened one of our headline results, the dashboard was corrected to
+            say so.
+          </p>
+        </article>
+        <article>
+          <h3>Small team, organization habits</h3>
+          <p>
+            One developer, but with CI gating every commit, a self-updating data
+            pipeline, per-market health checks, incident postmortems, and a
+            documented benchmark card instead of a cherry-picked chart.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section section--split" id="about">
+      <div>
+        <h2>About me</h2>
+        <p>
+          I'm Adnan, 17, from Almaty. I got interested in electricity because Almaty's
+          air and grid put real questions in front of me every winter.
+          GridCast is my answer at grid scale; an air-quality forecasting project for
+          Almaty is scoped and data-verified next.
+        </p>
+        <p>
+          I'm applying to universities in <strong>Europe for 2027</strong> to study computer
+          science and engineering. This site exists to be checked, not admired:
+          every link opens either working software or its code.
+        </p>
+      </div>
+      <div class="about__card">
+        <h3>Reach me</h3>
+        <ul class="contact">
+          <li><span>GitHub</span><a href="https://github.com/adnanadnankaldybayev-design" target="_blank" rel="noopener">adnanadnankaldybayev-design</a></li>
+          <li><span>Email</span><a href="mailto:adnanadnankaldybayev@icloud.com">adnanadnankaldybayev@icloud.com</a></li>
+          <li><span>Flagship</span><a href="https://adnanadnankaldybayev-design.github.io/gridcast/" target="_blank" rel="noopener">gridcast (live)</a></li>
+        </ul>
+        <p class="note">Best first stop: the live dashboard, then its benchmark card.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Adnan Kaldybayev · Built by hand, updated by machines that report to me.</p>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

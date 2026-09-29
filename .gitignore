@@ -1,0 +1,5 @@
+# internal strategy & ops files are NOT part of the public portfolio
+AGENTS.md
+docs/
+projects/
+*.log
